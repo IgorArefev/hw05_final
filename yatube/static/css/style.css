@@ -1,0 +1,143 @@
+@font-face {
+  font-family: 'GothamPro';
+  src: url('../fonts/GothamPro.ttf');
+}
+body {
+  font: 400 16px GothamPro;
+  line-height: 1.7;
+  color: #383838;
+  background: #f1f1f1;
+}
+.row {
+    margin-right: 0px;
+    margin-left: 0px;
+}
+aside {
+    background: #181818;
+    padding: 2.5%;
+    color: #fff;
+    border-right: 5px solid #4d4d4d;
+}
+a {
+  color: #497781;
+  text-decoration: none;
+  font-weight: 500;
+}
+a:hover {
+    color: #4d4d4d;
+   }
+h2 {
+  font-size: 26px;
+  text-transform: uppercase;
+  color: #212121;
+  font-weight: 800;
+}
+h4 {
+  font-size: 20px;
+  line-height: 1.375em;
+  color: #303030;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+.btn-link {
+    color: #000000;
+
+}
+.btn-link:hover, .btn-link:active {
+    color: #2d2d2d;
+
+}
+.btn-primary {
+    color: #fff;
+    background-color: #0e7042;
+    border-color: #0b311f;
+}
+.btn-primary:hover, .btn-primary:active {
+    color: #fff;
+    background-color: #0a5934;
+    border-color: #0b311f;
+}
+.nav-pills {
+  font: 400 14px GothamPro;
+}
+.nav-pills .nav-link.active {
+  background: #0e7042;
+}
+.navbar-light .navbar-nav {
+    color: #234512;
+}
+.container-fluid {
+  padding: 60px 50px;
+}
+.bg-grey {
+  background-color: #ececec;
+}
+.item h4 {
+  font-size: 30px;
+  line-height: 1.375em;
+  font-weight: 400;
+  font-style: italic;
+  margin: 70px 0;
+}
+.slide {
+  -webkit-animation-name: slide;
+  -webkit-animation-duration: 1s;
+}
+@-webkit-keyframes slide {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(70%);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0%);
+  }
+}
+.pagination-outer {
+  text-align: center;
+}
+.pagination {
+  display: inline-flex;
+  position: relative;
+}
+.pagination li a.page-link {
+  color: #b0b0b0;
+  background-color: transparent;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 28px;
+  height: 30px;
+  width: 30px;
+  padding: 0;
+  margin: 0 10px 0 0;
+  border: 2px dashed rgba(121, 121, 121, 0.5);
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s ease 0s;
+}
+.pagination li.active a.page-link,
+.pagination li a.page-link:hover,
+.pagination li.active a.page-link:hover {
+  color: #000000;
+  background-color: transparent;
+  border-color: #000000;
+}
+.pagination li a.page-link:before {
+  content: '';
+  background: #0e7042;
+  height: 22px;
+  width: 22px;
+  border-radius: 50%;
+  transform: translateX(-50%) translateY(50%) rotateX(90deg);
+  transform-origin: top center;
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  z-index: -1;
+  transition: all 0.3s;
+}
+.pagination li.active a.page-link:before,
+.pagination li a.page-link:hover:before,
+.pagination li.active a.page-link:hover:before {
+  transform: translateX(-50%) translateY(50%) rotateX(0);
+}

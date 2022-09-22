@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}
+  Профайл пользователя {{ author.get_full_name }}
+{% endblock %}
+{% block content %}
+  <div class="container py-5">
+    <div class="row justify-content-start">
+    {% if author.get_full_name %}
+      <h1><span class="badge bg-success">{{ author.get_full_name }}</span></h1>
+    {% else %}
+      <h1><span class="badge bg-success">@{{ author }}</span></h1>
+    {% endif %}
+      <div class="container">
+      {% if author.following.count %}
+        <p style="font-size: medium">
+          <span class="badge bg-black align-middle">{{ author.following.count }}</span>
+            | Подписчиков
+        </p>
+      {% endif %}
+      {% if author.follower.count %}
+        <p style="font-size: medium">
+          <span class="badge bg-black align-middle">{{ author.follower.count }}</span>
+            | Подписок
+        </p>
+      {% endif %}
+      {% if author.posts.count %}
+        <p style="font-size: medium">
+          <span class="badge bg-black align-middle">{{ author.posts.count }}</span>
+            | Все посты пользователя:
+        </p>
+      {% endif %}
+      </div>
+      <div>
+        {% include 'posts/includes/follow_button.html' %}
+      </div>
+    </div>
+    <br>
+    <article>
+      {% include 'posts/includes/post.html' %}
+    </article>
+  </div>
+  {% include 'posts/includes/paginator.html' %}
+{% endblock %}

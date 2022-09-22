@@ -1,0 +1,11 @@
+{% if user.is_authenticated and author != user %}
+  {% if following %}
+    <a class="btn btn-dark"
+    href="{% url 'posts:profile_unfollow' author.username %}" role="button"> Отписаться
+    </a>
+  {% else %}
+    <a class="btn btn-outline-success"
+    href="{% url 'posts:profile_follow' author.username %}" role="button"> Подписаться
+    </a>
+  {% endif %}
+{% endif %}

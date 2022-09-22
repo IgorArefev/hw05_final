@@ -1,0 +1,51 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-lg-top">
+  <div class="container">
+    <a class="navbar-brand" href="{% url 'posts:index' %}">
+      <img src="{% static 'img/logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+      <span style="color:red">Ya</span>tube
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
+      <ul class="navbar-nav nav-pills">
+      {% with request.resolver_match.view_name as view_name %}
+      {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link {% if view_name  == 'posts:post_create' %} active {% endif %}"
+            href="{% url 'posts:post_create' %}">Новая запись
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if view_name  == 'users:password_change_form' %} active {% endif %}"
+            href="{% url 'users:password_change_form' %}">Изменить пароль
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link
+            {% if view_name  == 'posts:profile' and author == user %} active {% endif %}"
+            href="{% url 'posts:profile' user.username %}">Пользователь: {{ user.username }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link-danger" href="{% url 'users:logout' %}">Выйти</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link link-light {% if view_name  == 'users:login' %} active {% endif %}"
+            href="{% url 'users:login' %}">Войти
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link-light {% if view_name  == 'users:signup' %} active {% endif %}"
+            href="{% url 'users:signup' %}">Регистрация
+          </a>
+        </li>
+        {% endif %}
+      {% endwith %}
+      </ul>
+    </div>
+  </div>
+</nav>

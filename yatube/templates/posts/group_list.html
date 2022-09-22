@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}
+  Записи сообщества: "{{ group.title }}"
+{% endblock %}
+{% block content %}
+  <div class="container py-5">
+    <span class="badge bg-success align-middle" style="font-size: large">
+      {{ group.title }}
+    </span>
+    <br>
+    <span class="badge bg-black align-middle" style="font-size: small">
+      {{ group.description }}
+    </span>
+    <br><br>
+    <article>
+    {% include 'posts/includes/post.html' %}
+    </article>
+  </div>
+{% include 'posts/includes/paginator.html' %}
+{% endblock %}

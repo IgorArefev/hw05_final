@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+  Об авторе
+{% endblock %}
+
+{% block content %}
+  <div id="about" class="container-fluid">
+    <div class="row">
+      <div class="col-12 col-sm-9">
+        <h2>немного о себе:</h2><br>
+        <h4>Арефьев Игорь Владимирович, 40 лет, начинающий программист</h4><br>
+        <p>В настоящее время прохожу курсы по изучению языка python. Туда же входит бэкенд разработка, настройка серверов под проект, работа с базами данных, алгоритмы и структуры данных, управление проектом. Общителен и ответственен. Легко учусь, люблю открывать в себе что-то новое.</p><br>
+        <a href="https://hh.ru/resume/5fa5a884ff0b0371900039ed1f4f544b4e4562" target="_blank">резюме</a>
+      </div>
+      <div class="col-12 col-sm-3">
+        <img width="100%" class="img-thumbnail" src="{% static 'img/ava.jpeg' %}" alt="photo">
+      </div>
+    </div>
+  </div>
+  <div id="contact" class="container-fluid text-sm-end bg-grey">
+    <div class="row">
+      <h2 > КОНТАКТЫ: </h2>
+      <p> Москва</p>
+      <p> +7 923 203-9555</p>
+      <p> arefev.iv@mail.ru</p>
+      <a href="https://github.com/IgorArefev" target="_blank">GIT</a>
+    </div>
+  </div>
+{% endblock %}
+
+

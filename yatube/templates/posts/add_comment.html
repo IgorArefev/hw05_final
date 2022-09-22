@@ -1,0 +1,67 @@
+{% load user_filters %}
+<div class="row">
+  <div class="col-sm-4">
+    {% if user.is_authenticated %}
+    <br>
+    <h5 class="card-header">Добавить комментарий:</h5>
+    <br>
+    <div class="card-body">
+      <form method="post" action="{% url 'posts:add_comment' post.id %}">
+        {% csrf_token %}
+        <div class="form-group mb-2">
+          {{ form.text|addclass:"form-control" }}
+        </div>
+        <button type="submit" class="btn btn-primary">Отправить</button>
+      </form>
+      <br>
+    </div>
+    {% else %}
+    <br>
+    <br>
+    <h5 class="text-center">
+      <a href="{% url 'users:login' %}">Войдите</a> или
+      <a href="{% url 'users:signup' %}">зарегистрируйтесь</a>,<br>
+      что бы добавить комментарий:</h5>
+    <br>
+    {% endif %}
+  </div>
+  <div class="col-sm-8">
+    {% if page_obj %}
+    <br>
+    <h5 class="card-header text-center">Комментарии:</h5>
+    <br>
+    {% for comment in page_obj %}
+      <div class="media mb-4">
+        <div class="media-body">
+          <h5 class="mt-0" style="font-size: small">
+            {% if comment.author.get_full_name %}
+              <a href="{% url 'posts:profile' comment.author.username %}">
+                {{ comment.author.get_full_name }}
+              </a>
+            {% else %}
+              <a href="{% url 'posts:profile' comment.author.username %}">
+                @{{ comment.author.username }}
+              </a>
+            {% endif %}
+          </h5>
+          <p>
+            {{ comment.text }}
+          </p>
+          <p style="font-size: small">
+            {{ comment.created|date:"d M Y, G:i" }}
+          </p>
+          {% if not forloop.last %}
+          <hr>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+    {% include 'posts/includes/paginator.html' %}
+    {% else %}
+      <br>
+      <br>
+      <h5 class="card-header text-center">Комментариев пока нет</h5>
+      <br>
+    {% endif %}
+  </div>
+</div>

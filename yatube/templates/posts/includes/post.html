@@ -1,0 +1,42 @@
+{% load thumbnail %}
+{% for post in page_obj %}
+  <ul>
+    {% if not request.resolver_match.view_name == 'posts:profile' %}
+    <li>
+      {% if post.author.get_full_name %}
+        Автор:
+        <a href="{% url 'posts:profile' post.author.username %}">{{ post.author.get_full_name }}</a>
+      {% else %}
+        Автор:
+        <a href="{% url 'posts:profile' post.author.username %}">@{{ post.author }}</a>
+      {% endif %}
+    </li>
+    {% endif %}
+    <li>
+      Дата публикации: {{ post.pub_date|date:"d E Y" }}
+    </li>
+  </ul>
+  <div class="clearfix">
+    {% thumbnail post.image "1280x840" crop="center" upscale=True as im %}
+      <img class="img-thumbnail col-md-5 float-md-start mx-md-3" src="{{ im.url }}">
+    {% endthumbnail %}
+    <p>{{ post.text|linebreaks }}</p>
+  </div>
+  <br>
+  <p>
+    <a href="{% url 'posts:post_detail' post.id %}">подробная информация</a>
+    {% if post.comments.count %}
+      <span class="badge bg-success align-middle">{{ post.comments.count }}</span>
+    {% endif %}
+    {% if post.author == user %}
+      <span>|</span>
+      <a href="{% url 'posts:post_edit' post.id %}">редактировать</a>
+    {% endif %}
+  </p>
+  {% if post.group and not group%}
+    все записи группы: <a href="{% url 'posts:group_list' post.group.slug %}">{{ post.group }}</a>
+  {% endif %}
+  {% if not forloop.last %}
+    <hr>
+  {% endif %}
+{% endfor %}

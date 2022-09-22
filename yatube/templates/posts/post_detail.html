@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+{% block title %}
+    Пост {{ post.text|truncatechars:30 }}
+{% endblock %}
+{% block content %}
+  <div class="row">
+    <aside class="col-sm-4">
+      <ul class="list-group-flush ">
+        <li class="list-group-item">
+        {% if post.author.get_full_name %}
+          <a href="{% url 'posts:profile' post.author.username %}">
+            {{ post.author.get_full_name }}
+          </a>
+        {% else %}
+          <a href="{% url 'posts:profile' post.author.username %}">
+            @{{ post.author }}
+          </a>
+        {% endif %}
+        </li>
+        {% if post.group %}
+        <br>
+        <li class="list-group-item">
+          <a href="{% url 'posts:group_list' post.group.slug %}">
+            {{ post.group }}
+          </a>
+        </li>
+        {% endif %}
+        <br>
+        {% if post.author.following.count %}
+        <li class="list-group-item">
+          <p>
+            <span class="badge bg-black align-middle" style="font-size: medium">{{ post.author.following.count }}</span>
+            | Подписчиков
+          </p>
+        {% endif %}
+        {% if post.author.follower.count %}
+        <li class="list-group-item">
+          <p>
+            <span class="badge bg-black align-middle" style="font-size: medium">{{ post.author.follower.count }}</span>
+            | Подписок
+          </p>
+        {% endif %}
+        <li class="list-group-item">
+          <p>
+            <span class="badge bg-black align-middle" style="font-size: medium" >{{ post.author.posts.count }}</span>
+            | Всего постов автора
+          </p>
+        </li>
+        <li class="list-group-item">
+          {% include 'posts/includes/follow_button.html' %}
+        </li>
+      </ul>
+    </aside>
+    <article class="col-sm-8">
+      <div class="clearfix">
+      {% thumbnail post.image "1280x840" crop="center" upscale=True as im %}
+        <img class="img-thumbnail col-md-5 float-md-start mx-md-3" src="{{ im.url }}">
+      {% endthumbnail %}
+        <p>{{ post.text|linebreaks }}</p>
+      </div>
+      <div class="row align-content-center" style="height: 80px">
+        <div class="col-6 text-start" style="font-size: small">
+          {% if post.author == user %}
+            <a href="{% url 'posts:post_edit' post.id %}">редактировать</a>
+          {% endif %}
+        </div>
+        <div class="col-6 text-end" style="font-size: small">
+          {{ post.pub_date|date:"d M Y, G:i" }}
+        </div>
+      </div>
+    </article>
+  </div>
+{% include 'posts/add_comment.html' %}
+{% endblock %}
