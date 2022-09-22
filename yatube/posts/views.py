@@ -54,7 +54,7 @@ def post_detail(request, post_id):
     following = False
     if request.user.is_authenticated:
         following = post.author.following.filter(user=request.user).exists()
-    form = CommentForm
+    form = CommentForm()
     comments_list = post.comments.all()
     comments_obj = paginator(request, comments_list)
     template = 'posts/post_detail.html'
@@ -77,7 +77,7 @@ def add_comment(request, post_id):
         comment.author = request.user
         comment.post = post
         comment.save()
-        return redirect('posts:post_detail', post_id=post_id)
+    return redirect('posts:post_detail', post_id=post_id)
 
 
 @login_required
