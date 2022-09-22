@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from posts.models import Comments, Group, Post, User
+from posts.models import Comment, Group, Post, User
 
 
 class PostModelTests(TestCase):
@@ -17,7 +17,7 @@ class PostModelTests(TestCase):
             author=cls.user,
             text='Тестовое поле поста',
         )
-        cls.comment = Comments.objects.create(
+        cls.comment = Comment.objects.create(
             author=cls.user,
             post=cls.post,
             text='Тестовое поле коммента',

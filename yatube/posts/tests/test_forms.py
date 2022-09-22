@@ -6,7 +6,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import Client, TestCase, override_settings
 from django.urls import reverse
 
-from posts.models import Comments, Group, Post, User
+from posts.models import Comment, Group, Post, User
 
 TEMP_MEDIA_ROOT = tempfile.mkdtemp(dir=settings.BASE_DIR)
 
@@ -181,7 +181,7 @@ class PostFormTests(TestCase):
         от неавторизованного пользователя и происходит ли редирект.
 
         """
-        comments_count = Comments.objects.count()
+        comments_count = Comment.objects.count()
         form_data = {
             'text': 'Новый коммент',
         }
@@ -195,7 +195,7 @@ class PostFormTests(TestCase):
             self.url_login + '?next=' + self.url_comment
         )
         self.assertEqual(
-            Comments.objects.count(),
+            Comment.objects.count(),
             comments_count,
             'не авторизированный пользователь может создать коммент'
         )
@@ -206,7 +206,7 @@ class PostFormTests(TestCase):
         и происходит ли редирект.
 
         """
-        comments_count = Comments.objects.count()
+        comments_count = Comment.objects.count()
         old_post = self.post.id
         form_data = {
             'text': 'Новый комментарий',
@@ -216,10 +216,10 @@ class PostFormTests(TestCase):
             data=form_data,
             follow=True,
         )
-        commented_post = Comments.objects.get(post_id=old_post)
+        commented_post = Comment.objects.get(post_id=old_post)
         self.assertRedirects(response, self.url_post)
         self.assertEqual(
-            Comments.objects.count(),
+            Comment.objects.count(),
             comments_count + 1,
             'новый комментарий не добавился в базу'
         )
