@@ -11,8 +11,7 @@ from .models import Follow, Group, Post, User
 def paginator(request, queryset):
     page = Paginator(queryset, settings.PAGINATOR_VALUE)
     page_number = request.GET.get('page')
-    page_obj = page.get_page(page_number)
-    return page_obj
+    return page.get_page(page_number)
 
 
 @cache_page(20, key_prefix='index_page')
@@ -143,6 +142,6 @@ def profile_follow(request, username):
 def profile_unfollow(request, username):
     user = request.user
     if Follow.objects.filter(user=user, author__username=username).exists():
-        Follow.objects.get(user=user, author__username=username).delete()
+        get_object_or_404(Follow, user=user, author__username=username).delete()
         return redirect('posts:profile', username=username)
     return redirect('posts:index')
